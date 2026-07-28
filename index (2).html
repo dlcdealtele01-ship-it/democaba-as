@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Islas Nalu — Hostales y Cabañas, San Blas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A2B2A;
+    --lagoon:#0E6E67;
+    --lagoon-dark:#0A524D;
+    --turquoise:#3FBFAD;
+    --sand:#F3E9D2;
+    --sand-dark:#E6D6AE;
+    --coral:#F2734B;
+    --white:#FFFDF8;
+    --line: rgba(10,43,42,0.18);
+    --shadow: 0 20px 45px rgba(10,43,42,0.14);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.08;
+    margin:0;
+    color:var(--ink);
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:12px;
+    color:var(--lagoon-dark);
+    font-weight:700;
+  }
+  button, .btn{
+    font-family:'Work Sans', sans-serif;
+    cursor:pointer;
+    border:none;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+  .btn-primary{
+    background:var(--coral);
+    color:var(--white);
+    padding:16px 30px;
+    border-radius:var(--radius);
+    font-size:15px;
+    box-shadow:0 12px 24px rgba(242,115,75,0.35);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 30px rgba(242,115,75,0.42); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--white);
+    border:1.5px solid rgba(255,253,248,0.55);
+    padding:14px 26px;
+    border-radius:var(--radius);
+    font-size:14px;
+  }
+  .btn-ghost:hover{ border-color:var(--white); }
+  :focus-visible{ outline:3px solid var(--turquoise); outline-offset:2px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,43,42,0.92);
+    backdrop-filter:blur(6px);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
+  .brand{ display:flex; align-items:center; gap:10px; color:var(--white); }
+  .brand-mark{
+    width:34px; height:34px; border-radius:50%;
+    background:conic-gradient(from 200deg, var(--turquoise), var(--lagoon) 60%, var(--sand) 100%);
+    flex-shrink:0;
+  }
+  .brand-name{ font-family:'Fraunces', serif; font-size:20px; font-weight:600; }
+  .nav-links{ display:flex; gap:32px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ color:rgba(255,253,248,0.82); text-decoration:none; font-size:14px; font-weight:500; }
+  .nav-links a:hover{ color:var(--white); }
+  .nav-cta{ display:flex; gap:14px; align-items:center; }
+  @media (max-width:820px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:flex-end;
+    background:linear-gradient(180deg, rgba(10,43,42,0.35) 0%, rgba(10,43,42,0.15) 35%, rgba(10,43,42,0.82) 100%),
+      url('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    color:var(--white);
+  }
+  .hero-inner{ padding-bottom:64px; width:100%; }
+  .hero-ticket{
+    display:inline-flex; align-items:center; gap:10px;
+    background:rgba(255,253,248,0.12);
+    border:1px solid rgba(255,253,248,0.35);
+    padding:8px 14px; border-radius:100px;
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.08em;
+    margin-bottom:22px;
+  }
+  .hero h1{ font-size:clamp(38px, 6vw, 74px); max-width:820px; color:var(--white); }
+  .hero p.lead{ max-width:520px; font-size:17px; margin-top:18px; color:rgba(255,253,248,0.88); }
+  .hero-actions{ display:flex; gap:16px; margin-top:34px; flex-wrap:wrap; }
+  .hero-stats{ display:flex; gap:40px; margin-top:56px; flex-wrap:wrap; }
+  .hero-stat b{ display:block; font-family:'Fraunces',serif; font-size:28px; }
+  .hero-stat span{ font-size:12px; color:rgba(255,253,248,0.7); text-transform:uppercase; letter-spacing:.08em; }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{ padding:96px 0; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(28px,3.6vw,42px); margin-top:10px; }
+  .section-head p{ margin-top:14px; color:rgba(10,43,42,0.72); font-size:16px; }
+
+  /* ---------- CABIN "BOARDING PASS" CARDS ---------- */
+  .cabins{ background:var(--white); }
+  .cabin-list{ display:flex; flex-direction:column; gap:28px; }
+  .ticket{
+    display:grid;
+    grid-template-columns: 1.15fr 1fr;
+    background:var(--sand);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .ticket-photo{ position:relative; min-height:340px; background-size:cover; background-position:center; }
+  .ticket-photo .tag{
+    position:absolute; top:18px; left:18px;
+    background:var(--ink); color:var(--sand);
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.08em;
+    padding:6px 12px; border-radius:100px; text-transform:uppercase;
+  }
+  .ticket-body{ padding:36px 40px; display:flex; flex-direction:column; position:relative; }
+  .ticket-route{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--lagoon-dark);
+    letter-spacing:.05em; margin-bottom:18px;
+  }
+  .ticket-route .code{ font-weight:700; }
+  .ticket-body h3{ font-size:28px; }
+  .ticket-body .desc{ margin-top:12px; color:rgba(10,43,42,0.75); font-size:14.5px; max-width:420px; }
+  .ticket-amenities{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .ticket-amenities span{
+    font-size:12px; padding:6px 12px; border:1px solid var(--line); border-radius:100px;
+    color:var(--lagoon-dark); background:rgba(255,253,248,0.5);
+  }
+  .ticket-stub{
+    margin-top:auto; padding-top:26px; margin-top:26px;
+    border-top:2px dashed rgba(10,43,42,0.3);
+    display:flex; align-items:flex-end; justify-content:space-between;
+    position:relative;
+  }
+  .ticket-stub::before, .ticket-stub::after{
+    content:''; position:absolute; top:-11px; width:22px; height:22px; border-radius:50%;
+    background:var(--white);
+  }
+  .ticket-stub::before{ left:-52px; }
+  .ticket-stub::after{ right:-52px; }
+  .cabins .ticket .ticket-stub::before, .cabins .ticket .ticket-stub::after{ background:var(--sand); }
+  .price-block span{ display:block; font-size:11px; text-transform:uppercase; letter-spacing:.09em; color:rgba(10,43,42,0.55); }
+  .price-block b{ font-family:'JetBrains Mono',monospace; font-size:30px; color:var(--ink); }
+  .price-block em{ font-style:normal; font-size:13px; color:rgba(10,43,42,0.55); }
+  .ticket .select-btn{
+    background:var(--lagoon); color:var(--white); padding:13px 22px; border-radius:var(--radius);
+    font-size:14px;
+  }
+  .ticket .select-btn:hover{ background:var(--lagoon-dark); }
+  @media (max-width:860px){
+    .ticket{ grid-template-columns:1fr; }
+    .ticket-photo{ min-height:220px; }
+    .ticket-stub::before, .ticket-stub::after{ display:none; }
+  }
+
+  /* ---------- BOOKING ---------- */
+  .booking{ background:var(--lagoon); color:var(--white); position:relative; overflow:hidden; }
+  .booking::before{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 85% 20%, rgba(63,191,173,0.35), transparent 55%);
+  }
+  .booking .wrap{ position:relative; }
+  .booking .section-head p{ color:rgba(255,253,248,0.8); }
+  .booking .section-head h2{ color:var(--white); }
+  .booking-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+  .panel{
+    background:var(--white); color:var(--ink); border-radius:10px; padding:32px; box-shadow:var(--shadow);
+  }
+  .field{ margin-bottom:20px; }
+  .field label{ display:block; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--lagoon-dark); font-weight:600; margin-bottom:8px; }
+  .field select, .field input{
+    width:100%; padding:13px 14px; border:1.5px solid var(--line); border-radius:6px;
+    font-family:'Work Sans',sans-serif; font-size:15px; background:var(--white); color:var(--ink);
+  }
+  .field select:focus, .field input:focus{ border-color:var(--lagoon); }
+  .date-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; position:relative; }
+  .date-input-wrap{ position:relative; }
+  .date-input-wrap input{ cursor:pointer; background:var(--white); }
+
+  .calendar-pop{
+    position:absolute; top:calc(100% + 8px); left:0; right:0; margin:0 auto; z-index:40;
+    background:var(--white); border:1px solid var(--line); border-radius:8px;
+    box-shadow:var(--shadow); padding:18px; width:300px; display:none;
+  }
+  .calendar-pop.open{ display:block; }
+  .cal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .cal-head b{ font-family:'Fraunces',serif; font-size:16px; }
+  .cal-nav{ background:var(--sand); border-radius:50%; width:28px; height:28px; font-size:14px; color:var(--ink); }
+  .cal-hint{ font-size:11px; color:rgba(10,43,42,0.55); text-align:center; margin-bottom:10px; }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-dow{ font-size:10px; text-align:center; color:rgba(10,43,42,0.5); text-transform:uppercase; padding-bottom:4px; }
+  .cal-day{
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    font-size:12.5px; border-radius:6px; background:transparent; color:var(--ink); position:relative;
+  }
+  .cal-day.empty{ visibility:hidden; }
+  .cal-day.avail:hover{ background:var(--sand-dark); }
+  .cal-day.occupied{ background:#F6E1DA; color:#C8563A; text-decoration:line-through; cursor:not-allowed; }
+  .cal-day.selected{ background:var(--lagoon); color:var(--white); font-weight:700; border-radius:6px; }
+  .cal-day.in-range{ background:rgba(63,191,173,0.18); border-radius:0; }
+  .cal-day.range-start{ border-radius:6px 0 0 6px; }
+  .cal-day.range-end{ border-radius:0 6px 6px 0; }
+  .cal-day.past{ color:rgba(10,43,42,0.25); cursor:not-allowed; }
+  .cal-legend{ display:flex; gap:14px; margin-top:12px; font-size:11px; color:rgba(10,43,42,0.65); }
+  .cal-legend span{ display:flex; align-items:center; gap:5px; }
+  .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .dot.avail{ background:var(--sand-dark); }
+  .dot.occ{ background:#F6E1DA; }
+
+  .summary-line{ display:flex; justify-content:space-between; font-size:14px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .summary-line.total{ font-weight:700; font-size:16px; border-bottom:none; padding-top:16px; }
+  .summary-line .mono{ font-size:14px; }
+
+  /* payment */
+  .card-visual{
+    background:linear-gradient(135deg, var(--ink), var(--lagoon-dark));
+    color:var(--white); border-radius:12px; padding:24px; margin-bottom:22px;
+    font-family:'JetBrains Mono',monospace; position:relative; overflow:hidden; min-height:150px;
+  }
+  .card-visual::after{
+    content:''; position:absolute; width:180px; height:180px; border-radius:50%;
+    background:rgba(63,191,173,0.25); right:-60px; bottom:-70px;
+  }
+  .card-visual .num{ font-size:19px; letter-spacing:.12em; margin:26px 0 18px; }
+  .card-visual .row{ display:flex; justify-content:space-between; font-size:11px; text-transform:uppercase; opacity:.8; }
+  .card-visual .name{ font-size:13px; text-transform:uppercase; margin-top:4px; letter-spacing:.05em; }
+  .row-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .pay-note{ font-size:12px; color:rgba(10,43,42,0.55); margin-top:10px; display:flex; gap:6px; align-items:flex-start; }
+  .success-box{ display:none; text-align:center; padding:20px 0; }
+  .success-box.show{ display:block; }
+  .success-icon{
+    width:56px; height:56px; border-radius:50%; background:var(--turquoise); color:var(--white);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:26px;
+  }
+  .success-code{
+    font-family:'JetBrains Mono',monospace; background:var(--sand); display:inline-block;
+    padding:8px 16px; border-radius:6px; margin-top:10px; font-size:14px; letter-spacing:.06em;
+  }
+
+  /* ---------- WHY / TRUST ---------- */
+  .why{ background:var(--sand); }
+  .why-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:30px; }
+  .why-card{ background:var(--white); border-radius:10px; padding:32px 28px; box-shadow:var(--shadow); }
+  .why-card .num{ font-family:'JetBrains Mono',monospace; color:var(--coral); font-weight:700; font-size:13px; }
+  .why-card h3{ font-size:19px; margin-top:14px; }
+  .why-card p{ margin-top:10px; font-size:14.5px; color:rgba(10,43,42,0.7); }
+  @media (max-width:860px){ .why-grid, .booking-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- GALLERY STRIP ---------- */
+  .gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .gallery img{ border-radius:8px; height:220px; object-fit:cover; width:100%; }
+  @media (max-width:860px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- CONTACT / MAP ---------- */
+  .contact{ background:var(--white); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+  .contact-card{ background:var(--sand); border-radius:10px; padding:36px; }
+  .wa-line{ display:flex; align-items:center; gap:14px; margin-top:22px; }
+  .wa-icon{ width:44px; height:44px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:rgba(255,253,248,0.85); padding:64px 0 28px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px; }
+  .footer-grid h4{ color:var(--white); font-family:'Fraunces',serif; font-size:16px; margin-bottom:16px; font-weight:600; }
+  .footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:14px; }
+  .footer-grid ul a{ text-decoration:none; color:rgba(255,253,248,0.75); }
+  .footer-grid ul a:hover{ color:var(--turquoise); }
+  .social-row{ display:flex; gap:12px; margin-top:8px; }
+  .social-row a{
+    width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,253,248,0.3);
+    display:flex; align-items:center; justify-content:center; color:var(--white); text-decoration:none;
+  }
+  .social-row a:hover{ background:var(--turquoise); border-color:var(--turquoise); }
+  .footer-bottom{
+    margin-top:48px; padding-top:24px; border-top:1px solid rgba(255,253,248,0.15);
+    display:flex; justify-content:space-between; font-size:12.5px; color:rgba(255,253,248,0.55); flex-wrap:wrap; gap:10px;
+  }
+  @media (max-width:860px){ .footer-grid, .contact-grid{ grid-template-columns:1fr; } }
+
+  /* WhatsApp float button */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:60;
+    width:60px; height:60px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(0,0,0,0.3);
+    text-decoration:none; animation:pulse 2.6s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(37,211,102,0.5), 0 10px 26px rgba(0,0,0,0.3); }
+    70%{ box-shadow:0 0 0 14px rgba(37,211,102,0), 0 10px 26px rgba(0,0,0,0.3); }
+    100%{ box-shadow:0 0 0 0 rgba(37,211,102,0), 0 10px 26px rgba(0,0,0,0.3); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .wa-float{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ================================================================
+     AJUSTES RESPONSIVE ADICIONALES
+     (no modifican reglas de escritorio existentes, solo agregan
+     comportamiento para pantallas angostas)
+  ================================================================ */
+
+  /* Botón hamburguesa: oculto en desktop */
+  .nav-toggle{
+    display:none;
+    background:transparent;
+    border:none;
+    padding:6px;
+    align-items:center;
+    justify-content:center;
+    border-radius:6px;
+  }
+  .nav-toggle:hover{ background:rgba(255,253,248,0.12); }
+
+  @media (max-width:820px){
+    nav .wrap{ flex-wrap:wrap; height:auto; min-height:74px; padding-top:14px; padding-bottom:14px; }
+    .nav-cta{ gap:10px; }
+    .nav-toggle{ display:flex; }
+
+    /* El menú se convierte en un panel desplegable controlado por JS */
+    .nav-links{
+      display:none;
+      width:100%;
+      order:10;
+      flex-direction:column;
+      gap:0;
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,253,248,0.15);
+    }
+    .nav-links.mobile-open{ display:flex; }
+    .nav-links li{ width:100%; }
+    .nav-links a{
+      display:block;
+      padding:12px 4px;
+      font-size:15px;
+      border-bottom:1px solid rgba(255,253,248,0.08);
+    }
+  }
+
+  @media (max-width:600px){
+    .wrap{ padding:0 20px; }
+    section{ padding:64px 0; }
+    .hero{ min-height:auto; padding-top:110px; }
+    .hero-inner{ padding-bottom:44px; }
+    .hero p.lead{ max-width:100%; }
+    .hero-actions{ flex-direction:column; align-items:stretch; }
+    .hero-actions .btn-primary, .hero-actions .btn-ghost{ text-align:center; }
+    .hero-stats{ gap:26px; margin-top:40px; }
+    .section-head{ margin-bottom:36px; }
+
+    .ticket-body{ padding:26px 22px; }
+    .ticket-body h3{ font-size:24px; }
+    .ticket-stub{ flex-wrap:wrap; gap:14px; align-items:center; }
+    .price-block b{ font-size:26px; }
+
+    .booking-grid{ gap:24px; }
+    .panel{ padding:22px; }
+    .date-row{ grid-template-columns:1fr; gap:14px; }
+    .calendar-pop{ width:100%; max-width:280px; left:0; right:auto; }
+    .row-2{ grid-template-columns:1fr 1fr; gap:12px; }
+
+    .card-visual{ padding:20px; }
+    .card-visual .num{ font-size:15px; letter-spacing:.06em; word-break:break-all; }
+
+    .why-card{ padding:26px 22px; }
+    .contact-card{ padding:26px; }
+
+    .gallery{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .gallery img{ height:150px; }
+
+    .footer-grid{ gap:32px; }
+    .footer-bottom{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (max-width:380px){
+    .hero h1{ font-size:clamp(30px, 8vw, 40px); }
+    .hero-stat b{ font-size:22px; }
+    .gallery{ grid-template-columns:1fr; }
+    .row-2{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <span class="brand-name">Islas Nalu</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#cabanas" onclick="closeNavMenu()">Cabañas</a></li>
+      <li><a href="#reservar" onclick="closeNavMenu()">Reservar</a></li>
+      <li><a href="#experiencia" onclick="closeNavMenu()">Experiencia</a></li>
+      <li><a href="#contacto" onclick="closeNavMenu()">Contacto</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#reservar" class="btn-primary" style="padding:11px 22px; font-size:13px;">Reservar</a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" onclick="toggleNavMenu()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#FFFDF8" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-ticket">⛵ GUNA YALA · ARCHIPIÉLAGO SAN BLAS, PANAMÁ</div>
+    <h1>Tu pase de embarque hacia el Caribe más transparente de Panamá.</h1>
+    <p class="lead">Cabañas frente al mar y hospedaje tipo hostal en una isla privada de Guna Yala. Agua turquesa, arena blanca y noches sin electricidad de más — solo la de las estrellas.</p>
+    <div class="hero-actions">
+      <a href="#reservar" class="btn-primary">Ver disponibilidad</a>
+      <a href="#cabanas" class="btn-ghost">Conocer las cabañas</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>4</b><span>Modelos de hospedaje</span></div>
+      <div class="hero-stat"><b>365</b><span>Días de mar turquesa</span></div>
+      <div class="hero-stat"><b>15 min</b><span>En lancha desde el embarcadero</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="cabins" id="cabanas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Tarifas · Temporada 2026</span>
+      <h2>Cuatro formas de dormir frente al mar</h2>
+      <p>Cada modelo es un pase distinto: desde la hamaca compartida del hostal hasta la cabaña sobre el agua. Precios por noche, en dólares, para hasta la capacidad indicada.</p>
+    </div>
+
+    <div class="cabin-list">
+
+      <article class="ticket">
+        <div class="ticket-photo" style="background-image:url('https://images.unsplash.com/photo-1573843981267-be1999ff37cd?q=80&w=1200&auto=format&fit=crop')">
+          <span class="tag">Sobre el agua</span>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-route"><span>ISLAS NALU</span><span class="code">SBI · NALU-01</span></div>
+          <h3>Cabaña Nalu</h3>
+          <p class="desc">Bungaló privado sobre pilotes, terraza con escalera directa al mar y techo de palma tejida a mano.</p>
+          <div class="ticket-amenities">
+            <span>2 huéspedes</span><span>Baño privado</span><span>Terraza sobre el mar</span><span>Snorkel incluido</span>
+          </div>
+          <div class="ticket-stub">
+            <div class="price-block"><span>Desde</span><b>$145</b><em>/ noche</em></div>
+            <button class="select-btn" onclick="preselectCabin('nalu')">Elegir Nalu</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="ticket-photo" style="background-image:url('https://images.unsplash.com/photo-1590523278191-995cbcda646b?q=80&w=1200&auto=format&fit=crop')">
+          <span class="tag">Frente a la playa</span>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-route"><span>ISLAS NALU</span><span class="code">SBI · DUNA-02</span></div>
+          <h3>Cabaña Duna</h3>
+          <p class="desc">Palapa de arena y madera a cinco pasos de la orilla, con hamaca propia y ventilación cruzada natural.</p>
+          <div class="ticket-amenities">
+            <span>2–3 huéspedes</span><span>Hamaca privada</span><span>Vista al amanecer</span><span>Desayuno incluido</span>
+          </div>
+          <div class="ticket-stub">
+            <div class="price-block"><span>Desde</span><b>$95</b><em>/ noche</em></div>
+            <button class="select-btn" onclick="preselectCabin('duna')">Elegir Duna</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="ticket-photo" style="background-image:url('https://images.unsplash.com/photo-1439130490301-25e322d88054?q=80&w=1200&auto=format&fit=crop')">
+          <span class="tag">Familiar</span>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-route"><span>ISLAS NALU</span><span class="code">SBI · KORAL-03</span></div>
+          <h3>Cabaña Koral</h3>
+          <p class="desc">La más espaciosa: dos ambientes entre jardín tropical, ideal para familias o grupos de amigos.</p>
+          <div class="ticket-amenities">
+            <span>4–5 huéspedes</span><span>2 camas + litera</span><span>Jardín privado</span><span>Cocineta</span>
+          </div>
+          <div class="ticket-stub">
+            <div class="price-block"><span>Desde</span><b>$175</b><em>/ noche</em></div>
+            <button class="select-btn" onclick="preselectCabin('koral')">Elegir Koral</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="ticket">
+        <div class="ticket-photo" style="background-image:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1200&auto=format&fit=crop')">
+          <span class="tag">Hostal</span>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-route"><span>ISLAS NALU</span><span class="code">SBI · HAMACA-04</span></div>
+          <h3>Hostal Hamaca Comunal</h3>
+          <p class="desc">Cama en dormitorio compartido tipo hostal bajo techo de palma abierto al mar, para viajeros con mochila y ganas de socializar.</p>
+          <div class="ticket-amenities">
+            <span>Cama individual</span><span>Baños compartidos</span><span>Zona común</span><span>Ideal mochileros</span>
+          </div>
+          <div class="ticket-stub">
+            <div class="price-block"><span>Desde</span><b>$38</b><em>/ noche</em></div>
+            <button class="select-btn" onclick="preselectCabin('hamaca')">Elegir Hamaca</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="reservar">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" style="color:var(--turquoise);">Disponibilidad en vivo</span>
+      <h2>Revisa las fechas libres y reserva tu pase</h2>
+      <p>Selecciona el modelo de cabaña y elige check-in y check-out en el calendario. Los días ya ocupados aparecen marcados en rojo.</p>
+    </div>
+
+    <div class="booking-grid">
+      <div class="panel">
+        <div class="field">
+          <label for="cabinSelect">Modelo de hospedaje</label>
+          <select id="cabinSelect" onchange="onCabinChange()">
+            <option value="nalu">Cabaña Nalu — $145/noche</option>
+            <option value="duna">Cabaña Duna — $95/noche</option>
+            <option value="koral">Cabaña Koral — $175/noche</option>
+            <option value="hamaca">Hostal Hamaca Comunal — $38/noche</option>
+          </select>
+        </div>
+
+        <div class="date-row date-input-wrap">
+          <div class="field">
+            <label for="checkinInput">Check-in</label>
+            <input type="text" id="checkinInput" placeholder="Selecciona fecha" readonly onclick="openCalendar()">
+          </div>
+          <div class="field">
+            <label for="checkoutInput">Check-out</label>
+            <input type="text" id="checkoutInput" placeholder="Selecciona fecha" readonly onclick="openCalendar()">
+          </div>
+          <div class="calendar-pop" id="calShared"></div>
+        </div>
+
+        <div class="field">
+          <label for="guests">Huéspedes</label>
+          <input type="number" id="guests" min="1" max="6" value="2">
+        </div>
+
+        <div id="bookingSummary" style="display:none;">
+          <div class="summary-line"><span>Modelo</span><span class="mono" id="sumModel">—</span></div>
+          <div class="summary-line"><span>Noches</span><span class="mono" id="sumNights">0</span></div>
+          <div class="summary-line"><span>Precio por noche</span><span class="mono" id="sumRate">$0</span></div>
+          <div class="summary-line total"><span>Total estimado</span><span class="mono" id="sumTotal">$0</span></div>
+        </div>
+        <button class="btn-primary" style="width:100%; margin-top:20px;" onclick="goToPayment()">Continuar al pago</button>
+      </div>
+
+      <div class="panel" id="paymentPanel">
+        <h3 style="font-size:20px; margin-bottom:6px;">Pago simulado</h3>
+        <p style="font-size:13px; color:rgba(10,43,42,0.6); margin-bottom:20px;">Este formulario es una demostración: no se procesa ningún cobro real ni se envían datos de tarjeta.</p>
+
+        <div id="paymentForm">
+          <div class="card-visual">
+            <div class="row"><span>Islas Nalu</span><span id="cardBrand">TARJETA</span></div>
+            <div class="num" id="cardNumPreview">•••• •••• •••• ••••</div>
+            <div class="row">
+              <span class="name" id="cardNamePreview">NOMBRE APELLIDO</span>
+              <span id="cardExpPreview">MM/AA</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cardName">Nombre en la tarjeta</label>
+            <input type="text" id="cardName" placeholder="Ej. María González" oninput="updateCardPreview()">
+          </div>
+          <div class="field">
+            <label for="cardNumber">Número de tarjeta</label>
+            <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)">
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="cardExp">Vencimiento</label>
+              <input type="text" id="cardExp" placeholder="MM/AA" maxlength="5" oninput="formatExpiry(this)">
+            </div>
+            <div class="field">
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" placeholder="123" maxlength="4">
+            </div>
+          </div>
+          <p id="payError" style="color:#C8563A; font-size:13px; display:none; margin-bottom:10px;"></p>
+          <button class="btn-primary" style="width:100%;" onclick="simulatePayment()" id="payBtn">Confirmar reserva y pagar</button>
+          <p class="pay-note">🔒 Ambiente de simulación — ideal para mostrar el flujo completo al cliente antes de conectar una pasarela real.</p>
+        </div>
+
+        <div class="success-box" id="successBox">
+          <div class="success-icon">✓</div>
+          <h3 style="font-size:20px;">¡Reserva confirmada!</h3>
+          <p style="font-size:14px; color:rgba(10,43,42,0.7); margin-top:8px;">Tu pase para <span id="successCabin">—</span> quedó registrado. Te esperamos en el embarcadero.</p>
+          <div class="success-code" id="successCode">SBI-000000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="experiencia">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Por qué Islas Nalu</span>
+      <h2>Una experiencia guiada de principio a fin</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="num">01</span>
+        <h3>Traslado incluido</h3>
+        <p>El precio de tu cabaña incluye el traslado en lancha desde el embarcadero de Carti hasta la isla.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">02</span>
+        <h3>Comidas típicas Guna</h3>
+        <p>Pescado fresco, coco y plátano preparados por familias locales, incluidos en la mayoría de los modelos.</p>
+      </div>
+      <div class="why-card">
+        <span class="num">03</span>
+        <h3>Comunidad local</h3>
+        <p>Trabajamos junto a la comunidad Guna Yala, respetando sus tierras, tradiciones y forma de vida.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cabins">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Galería</span>
+      <h2>Así se ve un día en la isla</h2>
+    </div>
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?q=80&w=600&auto=format&fit=crop" alt="Playa de arena blanca y mar turquesa en San Blas">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=600&auto=format&fit=crop" alt="Cabaña de palma junto al mar">
+      <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?q=80&w=600&auto=format&fit=crop" alt="Atardecer sobre el archipiélago">
+      <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=600&auto=format&fit=crop" alt="Vista aérea de islas del Caribe">
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="eyebrow">Contacto directo</span>
+      <h2 style="margin-top:10px; font-size:32px;">Escríbenos y coordinamos tu viaje a la isla</h2>
+      <p style="margin-top:14px; color:rgba(10,43,42,0.7);">Resolvemos dudas sobre disponibilidad, traslados y grupos por WhatsApp, en minutos.</p>
+      <div class="wa-line">
+        <div class="wa-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z" fill="#fff"/><path d="M8.5 7.7c.2-.5.5-.5.8-.5h.6c.2 0 .4 0 .6.4.2.5.7 1.7.7 1.8.1.2.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.4.4-.2.7.2.4.9 1.5 2 2.4 1.4 1.1 2.5 1.4 2.9 1.6.4.1.6.1.8-.1.2-.2.9-1 1.1-1.4.2-.3.4-.3.7-.2.3.1 2 1 2.3 1.1.3.2.5.2.6.4.1.2.1 1-.3 1.9-.4.9-2.1 1.7-2.9 1.8-.7.1-1.6.2-5-1.2-4.2-1.7-6.8-6-7-6.3-.2-.3-1.7-2.2-1.7-4.2 0-2 1-3 1.4-3.4Z" fill="#25D366"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:600;">+507 6123-4567</div>
+          <div style="font-size:13px; color:rgba(10,43,42,0.6);">Respuesta habitual en menos de 30 min</div>
+        </div>
+      </div>
+      <a href="https://wa.me/50761234567?text=Hola%2C%20quisiera%20consultar%20disponibilidad%20en%20Islas%20Nalu" class="btn-primary" style="display:inline-block; margin-top:24px;">Escribir por WhatsApp</a>
+    </div>
+    <div class="contact-card">
+      <span class="eyebrow">Ubicación</span>
+      <h3 style="margin-top:10px; font-size:20px;">Archipiélago de San Blas, Guna Yala</h3>
+      <p style="margin-top:10px; font-size:14px; color:rgba(10,43,42,0.7);">Punto de embarque: muelle de Carti, a 2.5 horas en carro desde Ciudad de Panamá. De ahí, 15 minutos en lancha hasta la isla.</p>
+      <p style="margin-top:14px; font-size:14px; color:rgba(10,43,42,0.7);">Recomendamos reservar el traslado terrestre con al menos 48 horas de anticipación.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;">
+          <div class="brand-mark"></div>
+          <span class="brand-name" style="color:var(--white);">Islas Nalu</span>
+        </div>
+        <p style="font-size:14px; color:rgba(255,253,248,0.65); max-width:280px;">Hostales y cabañas frente al mar en el archipiélago de San Blas, Panamá.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v6h4v-6h3l1-4h-4v-2c0-.6.4-1 1-1Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15 3v10.5a3.5 3.5 0 1 1-3.2-3.48" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M15 3c.3 2.6 2.1 4.5 4.6 4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <a href="https://wa.me/50761234567" aria-label="WhatsApp">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z" stroke="currentColor" stroke-width="1.4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Explorar</h4>
+        <ul>
+          <li><a href="#cabanas">Cabañas</a></li>
+          <li><a href="#reservar">Reservar</a></li>
+          <li><a href="#experiencia">Experiencia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Información</h4>
+        <ul>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="#">Cómo llegar</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li>+507 6123-4567</li>
+          <li>hola@islasnalu.com</li>
+          <li>Guna Yala, Panamá</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Islas Nalu. Todos los derechos reservados.</span>
+      <span>Sitio de demostración — fotos de referencia.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/50761234567?text=Hola%2C%20quiero%20reservar%20en%20Islas%20Nalu" aria-label="Escribir por WhatsApp" target="_blank">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Z" fill="#fff"/><path d="M8.5 7.7c.2-.5.5-.5.8-.5h.6c.2 0 .4 0 .6.4.2.5.7 1.7.7 1.8.1.2.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.4.4-.2.7.2.4.9 1.5 2 2.4 1.4 1.1 2.5 1.4 2.9 1.6.4.1.6.1.8-.1.2-.2.9-1 1.1-1.4.2-.3.4-.3.7-.2.3.1 2 1 2.3 1.1.3.2.5.2.6.4.1.2.1 1-.3 1.9-.4.9-2.1 1.7-2.9 1.8-.7.1-1.6.2-5-1.2-4.2-1.7-6.8-6-7-6.3-.2-.3-1.7-2.2-1.7-4.2 0-2 1-3 1.4-3.4Z" fill="#25D366"/></svg>
+</a>
+
+<script>
+/* ---------------- DATA ---------------- */
+const CABINS = {
+  nalu:   { name:'Cabaña Nalu',   rate:145 },
+  duna:   { name:'Cabaña Duna',   rate:95  },
+  koral:  { name:'Cabaña Koral',  rate:175 },
+  hamaca: { name:'Hostal Hamaca Comunal', rate:38 }
+};
+
+// Fechas ya ocupadas por modelo (simulación — reemplazar con datos reales de tu backend/Supabase)
+function d(offsetDays){
+  const dt = new Date();
+  dt.setDate(dt.getDate() + offsetDays);
+  return dt.toISOString().slice(0,10);
+}
+const OCCUPIED = {
+  nalu:   [d(3), d(4), d(5), d(12), d(13), d(20)],
+  duna:   [d(1), d(2), d(8), d(9), d(10), d(25)],
+  koral:  [d(6), d(7), d(15), d(16), d(17)],
+  hamaca: [d(0), d(2), d(4), d(6), d(9), d(11), d(14)]
+};
+
+let currentCabin = 'nalu';
+let selection = { checkin:null, checkout:null };
+let calMonthOffset = 0;
+
+/* ---------------- HELPERS ---------------- */
+const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DOWS = ['D','L','M','M','J','V','S'];
+
+function toISO(date){ return date.toISOString().slice(0,10); }
+function fmtDisplay(iso){
+  if(!iso) return '';
+  const [y,m,dd] = iso.split('-');
+  return `${dd}/${m}/${y}`;
+}
+
+/* ---------------- MENÚ MÓVIL ---------------- */
+function toggleNavMenu(){
+  const links = document.getElementById('navLinks');
+  const toggle = document.getElementById('navToggle');
+  const isOpen = links.classList.toggle('mobile-open');
+  toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+function closeNavMenu(){
+  const links = document.getElementById('navLinks');
+  const toggle = document.getElementById('navToggle');
+  links.classList.remove('mobile-open');
+  toggle.setAttribute('aria-expanded', 'false');
+}
+
+function preselectCabin(key){
+  document.getElementById('cabinSelect').value = key;
+  onCabinChange();
+  document.getElementById('reservar').scrollIntoView({behavior:'smooth'});
+}
+
+function onCabinChange(){
+  currentCabin = document.getElementById('cabinSelect').value;
+  selection = { checkin:null, checkout:null };
+  calMonthOffset = 0;
+  document.getElementById('checkinInput').value = '';
+  document.getElementById('checkoutInput').value = '';
+  document.getElementById('bookingSummary').style.display = 'none';
+  updateSuccessCabinLabel();
+}
+
+function updateSuccessCabinLabel(){
+  const el = document.getElementById('successCabin');
+  if(el) el.textContent = CABINS[currentCabin].name;
+}
+
+/* ---------------- CALENDAR (rango único: check-in + check-out) ---------------- */
+function openCalendar(){
+  const pop = document.getElementById('calShared');
+  pop.classList.add('open');
+  renderCalendar();
+  document.addEventListener('click', closeCalOnOutsideClick, { once:true });
+}
+
+function closeCalOnOutsideClick(e){
+  if(!e.target.closest('.date-input-wrap')){
+    document.getElementById('calShared').classList.remove('open');
+  } else if (document.querySelector('.calendar-pop.open')) {
+    document.addEventListener('click', closeCalOnOutsideClick, { once:true });
+  }
+}
+
+function hasOccupiedBetween(startIso, endIso){
+  const occupiedSet = new Set(OCCUPIED[currentCabin]);
+  let d = new Date(startIso);
+  const end = new Date(endIso);
+  d.setDate(d.getDate() + 1);
+  while(d < end){
+    if(occupiedSet.has(toISO(d))) return true;
+    d.setDate(d.getDate() + 1);
+  }
+  return false;
+}
+
+function renderCalendar(){
+  const pop = document.getElementById('calShared');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const view = new Date(today.getFullYear(), today.getMonth() + calMonthOffset, 1);
+  const y = view.getFullYear(), m = view.getMonth();
+  const firstDow = new Date(y, m, 1).getDay();
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const occupiedSet = new Set(OCCUPIED[currentCabin]);
+
+  const hint = !selection.checkin
+    ? 'Elegí la fecha de check-in'
+    : (!selection.checkout ? 'Ahora elegí la fecha de check-out' : 'Rango seleccionado');
+
+  let html = `
+    <div class="cal-head">
+      <button type="button" class="cal-nav" onclick="event.stopPropagation(); shiftMonth(-1)">‹</button>
+      <b>${MONTHS[m]} ${y}</b>
+      <button type="button" class="cal-nav" onclick="event.stopPropagation(); shiftMonth(1)">›</button>
+    </div>
+    <div class="cal-hint">${hint}</div>
+    <div class="cal-grid">
+      ${DOWS.map(x=>`<div class="cal-dow">${x}</div>`).join('')}
+      ${Array.from({length:firstDow}).map(()=>'<div class="cal-day empty"></div>').join('')}
+  `;
+
+  for(let day=1; day<=daysInMonth; day++){
+    const dateObj = new Date(y, m, day);
+    const iso = toISO(dateObj);
+    let cls = 'cal-day';
+    if(dateObj < today) cls += ' past';
+    else if(occupiedSet.has(iso)) cls += ' occupied';
+    else cls += ' avail';
+
+    if(iso === selection.checkin || iso === selection.checkout) cls += ' selected';
+    if(iso === selection.checkin) cls += ' range-start';
+    if(iso === selection.checkout) cls += ' range-end';
+    if(selection.checkin && selection.checkout && iso > selection.checkin && iso < selection.checkout){
+      cls += ' in-range';
+    }
+
+    const clickable = !cls.includes('past') && !cls.includes('occupied');
+    html += `<div class="${cls}" ${clickable ? `onclick="event.stopPropagation(); pickDate('${iso}')"` : ''}>${day}</div>`;
+  }
+  html += `</div>
+    <div class="cal-legend">
+      <span><i class="dot avail"></i> Disponible</span>
+      <span><i class="dot occ"></i> Ocupado</span>
+    </div>`;
+  pop.innerHTML = html;
+}
+
+function shiftMonth(dir){
+  calMonthOffset += dir;
+  if(calMonthOffset < 0) calMonthOffset = 0;
+  renderCalendar();
+}
+
+function pickDate(iso){
+  // Sin check-in aún, o ya había un rango completo -> arranca selección nueva
+  if(!selection.checkin || (selection.checkin && selection.checkout)){
+    selection.checkin = iso;
+    selection.checkout = null;
+    document.getElementById('checkinInput').value = fmtDisplay(iso);
+    document.getElementById('checkoutInput').value = '';
+  }
+  // Ya hay check-in, falta check-out
+  else{
+    if(iso <= selection.checkin){
+      // eligió una fecha igual/anterior al check-in -> se convierte en el nuevo check-in
+      selection.checkin = iso;
+      selection.checkout = null;
+      document.getElementById('checkinInput').value = fmtDisplay(iso);
+      document.getElementById('checkoutInput').value = '';
+    } else if(hasOccupiedBetween(selection.checkin, iso)){
+      // hay un día ocupado en el medio del rango -> reinicia con esta fecha como nuevo check-in
+      selection.checkin = iso;
+      selection.checkout = null;
+      document.getElementById('checkinInput').value = fmtDisplay(iso);
+      document.getElementById('checkoutInput').value = '';
+    } else {
+      selection.checkout = iso;
+      document.getElementById('checkoutInput').value = fmtDisplay(iso);
+      document.getElementById('calShared').classList.remove('open');
+    }
+  }
+  renderCalendar();
+  updateSummary();
+}
+
+function updateSummary(){
+  if(!selection.checkin || !selection.checkout) return;
+  const nights = Math.round((new Date(selection.checkout) - new Date(selection.checkin)) / 86400000);
+  if(nights <= 0) return;
+  const rate = CABINS[currentCabin].rate;
+  document.getElementById('sumModel').textContent = CABINS[currentCabin].name;
+  document.getElementById('sumNights').textContent = nights;
+  document.getElementById('sumRate').textContent = '$' + rate;
+  document.getElementById('sumTotal').textContent = '$' + (nights * rate);
+  document.getElementById('bookingSummary').style.display = 'block';
+}
+
+/* ---------------- PAYMENT SIMULATION ---------------- */
+function updateCardPreview(){
+  const name = document.getElementById('cardName').value.trim();
+  document.getElementById('cardNamePreview').textContent = name ? name.toUpperCase() : 'NOMBRE APELLIDO';
+}
+
+function formatCardNumber(input){
+  let v = input.value.replace(/\D/g,'').slice(0,16);
+  let parts = v.match(/.{1,4}/g) || [];
+  input.value = parts.join(' ');
+  const preview = parts.length ? parts.map((p,i)=> i < parts.length-1 ? '••••' : p.padEnd(4,'•')).join(' ') : '•••• •••• •••• ••••';
+  document.getElementById('cardNumPreview').textContent = v.length ? input.value.padEnd(19,'•').replace(/(.{4})/g,'$1 ').trim() : '•••• •••• •••• ••••';
+}
+
+function formatExpiry(input){
+  let v = input.value.replace(/\D/g,'').slice(0,4);
+  if(v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+  input.value = v;
+  document.getElementById('cardExpPreview').textContent = v || 'MM/AA';
+}
+
+function goToPayment(){
+  if(!selection.checkin || !selection.checkout){
+    alert('Selecciona check-in y check-out antes de continuar.');
+    return;
+  }
+  document.getElementById('paymentPanel').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function simulatePayment(){
+  const name = document.getElementById('cardName').value.trim();
+  const number = document.getElementById('cardNumber').value.replace(/\s/g,'');
+  const exp = document.getElementById('cardExp').value.trim();
+  const cvv = document.getElementById('cardCvv').value.trim();
+  const errEl = document.getElementById('payError');
+
+  if(!selection.checkin || !selection.checkout){
+    showError('Primero selecciona tus fechas de check-in y check-out.');
+    return;
+  }
+  if(name.length < 3){ showError('Ingresa el nombre tal como aparece en la tarjeta.'); return; }
+  if(number.length < 15){ showError('El número de tarjeta parece incompleto.'); return; }
+  if(!/^\d{2}\/\d{2}$/.test(exp)){ showError('Ingresa el vencimiento en formato MM/AA.'); return; }
+  if(cvv.length < 3){ showError('El CVV debe tener 3 o 4 dígitos.'); return; }
+
+  errEl.style.display = 'none';
+  const btn = document.getElementById('payBtn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Procesando pago simulado...';
+  btn.disabled = true;
+
+  setTimeout(()=>{
+    document.getElementById('paymentForm').style.display = 'none';
+    updateSuccessCabinLabel();
+    const code = 'SBI-' + Math.floor(100000 + Math.random()*899999);
+    document.getElementById('successCode').textContent = code;
+    document.getElementById('successBox').classList.add('show');
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }, 1400);
+}
+
+function showError(msg){
+  const errEl = document.getElementById('payError');
+  errEl.textContent = msg;
+  errEl.style.display = 'block';
+}
+</script>
+</body>
+</html>
