@@ -610,7 +610,7 @@
 
           <!-- Aquí PagueloFacil inyecta su formulario de tarjeta oficial (Hosted Fields). -->
           <div id="container-form"></div>
-          <p id="widgetHint" style="font-size:13px; color:rgba(10,43,42,0.6); text-align:center;">Completa tu correo y teléfono para cargar el formulario de pago.</p>
+          <p id="widgetHint" style="font-size:13px; color:rgba(10,43,42,0.6); text-align:center;">Completa tu correo y teléfono para continuar al pago.</p>
 
           <p class="pay-note">🔒 Conexión segura — tus datos de tarjeta se ingresan directamente en el formulario de PagueloFacil, nunca pasan por este sitio.</p>
         </div>
@@ -1017,7 +1017,7 @@ function tryLoadWidget(){
     };
     const setup = {
       lang: 'es',
-      embedded: true,
+      embedded: false,
       container: 'container-form',
       onError: function(data){
         console.error('Error del widget PagueloFacil:', data);
