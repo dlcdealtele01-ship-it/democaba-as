@@ -416,6 +416,7 @@
     .row-2{ grid-template-columns:1fr; }
   }
 </style>
+<script src="https://secure.paguelofacil.com/HostedFields/vendor/scripts/WALLET/PFScript.js"></script>
 </head>
 <body>
 
@@ -559,7 +560,7 @@
             <option value="nalu">Cabaña Nalu — $145/noche</option>
             <option value="duna">Cabaña Duna — $95/noche</option>
             <option value="koral">Cabaña Koral — $175/noche</option>
-            <option value="hamaca">Hostal Hamaca Comunal — $38/noche</option>
+            <option value="hamaca">Hostal Hamaca Comunal — $0.10/noche</option>
           </select>
         </div>
 
@@ -590,40 +591,28 @@
       </div>
 
       <div class="panel" id="paymentPanel">
-        <h3 style="font-size:20px; margin-bottom:6px;">Pago simulado</h3>
-        <p style="font-size:13px; color:rgba(10,43,42,0.6); margin-bottom:20px;">Este formulario es una demostración: no se procesa ningún cobro real ni se envían datos de tarjeta.</p>
+        <h3 style="font-size:20px; margin-bottom:6px;">Pago con tarjeta</h3>
+        <p style="font-size:13px; color:rgba(10,43,42,0.6); margin-bottom:20px;">Procesado de forma segura por PagueloFacil.</p>
 
         <div id="paymentForm">
-          <div class="card-visual">
-            <div class="row"><span>Islas Nalu</span><span id="cardBrand">TARJETA</span></div>
-            <div class="num" id="cardNumPreview">•••• •••• •••• ••••</div>
-            <div class="row">
-              <span class="name" id="cardNamePreview">NOMBRE APELLIDO</span>
-              <span id="cardExpPreview">MM/AA</span>
+          <div class="row-2">
+            <div class="field">
+              <label for="guestEmail">Correo del huésped</label>
+              <input type="email" id="guestEmail" placeholder="ej. maria@correo.com">
+            </div>
+            <div class="field">
+              <label for="guestPhone">Teléfono</label>
+              <input type="tel" id="guestPhone" placeholder="6123-4567">
             </div>
           </div>
 
-          <div class="field">
-            <label for="cardName">Nombre en la tarjeta</label>
-            <input type="text" id="cardName" placeholder="Ej. María González" oninput="updateCardPreview()">
-          </div>
-          <div class="field">
-            <label for="cardNumber">Número de tarjeta</label>
-            <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)">
-          </div>
-          <div class="row-2">
-            <div class="field">
-              <label for="cardExp">Vencimiento</label>
-              <input type="text" id="cardExp" placeholder="MM/AA" maxlength="5" oninput="formatExpiry(this)">
-            </div>
-            <div class="field">
-              <label for="cardCvv">CVV</label>
-              <input type="text" id="cardCvv" placeholder="123" maxlength="4">
-            </div>
-          </div>
           <p id="payError" style="color:#C8563A; font-size:13px; display:none; margin-bottom:10px;"></p>
-          <button class="btn-primary" style="width:100%;" onclick="simulatePayment()" id="payBtn">Confirmar reserva y pagar</button>
-          <p class="pay-note">🔒 Ambiente de simulación — ideal para mostrar el flujo completo al cliente antes de conectar una pasarela real.</p>
+
+          <!-- Aquí PagueloFacil inyecta su formulario de tarjeta oficial (Hosted Fields). -->
+          <div id="container-form"></div>
+          <p id="widgetHint" style="font-size:13px; color:rgba(10,43,42,0.6); text-align:center;">Completa tu correo y teléfono para cargar el formulario de pago.</p>
+
+          <p class="pay-note">🔒 Conexión segura — tus datos de tarjeta se ingresan directamente en el formulario de PagueloFacil, nunca pasan por este sitio.</p>
         </div>
 
         <div class="success-box" id="successBox">
@@ -770,7 +759,7 @@ const CABINS = {
   nalu:   { name:'Cabaña Nalu',   rate:145 },
   duna:   { name:'Cabaña Duna',   rate:95  },
   koral:  { name:'Cabaña Koral',  rate:175 },
-  hamaca: { name:'Hostal Hamaca Comunal', rate:38 }
+  hamaca: { name:'Hostal Hamaca Comunal', rate:0.10 }
 };
 
 // Fechas ya ocupadas por modelo (simulación — reemplazar con datos reales de tu backend/Supabase)
@@ -966,26 +955,19 @@ function updateSummary(){
   document.getElementById('bookingSummary').style.display = 'block';
 }
 
-/* ---------------- PAYMENT SIMULATION ---------------- */
-function updateCardPreview(){
-  const name = document.getElementById('cardName').value.trim();
-  document.getElementById('cardNamePreview').textContent = name ? name.toUpperCase() : 'NOMBRE APELLIDO';
-}
+/* ---------------- PAGO CON WIDGET OFICIAL DE PAGUELOFACIL ---------------- */
 
-function formatCardNumber(input){
-  let v = input.value.replace(/\D/g,'').slice(0,16);
-  let parts = v.match(/.{1,4}/g) || [];
-  input.value = parts.join(' ');
-  const preview = parts.length ? parts.map((p,i)=> i < parts.length-1 ? '••••' : p.padEnd(4,'•')).join(' ') : '•••• •••• •••• ••••';
-  document.getElementById('cardNumPreview').textContent = v.length ? input.value.padEnd(19,'•').replace(/(.{4})/g,'$1 ').trim() : '•••• •••• •••• ••••';
-}
+// ⚠️ Reemplaza estos dos valores por TUS credenciales reales
+// (Panel de PagueloFacil → Mi Empresa → Llaves). Este apiKey/cclw es el par
+// diseñado para usarse del lado del cliente con el widget Hosted Fields —
+// no es lo mismo que el token secreto de la API REST server-side.
+const PF_CONFIG = {
+  apiKey: 'brEyQRSzMm2UwQa5v0NsobRa3U8nH5xT|DIRfekpPaZrGx6dQ5YQUtAcRE',
+  cclw: '13AA955425E90154A38FDCA0D2D8D3F2EFDC534069261F5BD581DEB3EA8A1D6BE7B8EB3FA45FA72E88AD804FD064A136D067B7C6021B9C416C8E4F020ED84DAF',
+  sandbox: false // cambia a false cuando quieras cobros reales en producción
+};
 
-function formatExpiry(input){
-  let v = input.value.replace(/\D/g,'').slice(0,4);
-  if(v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
-  input.value = v;
-  document.getElementById('cardExpPreview').textContent = v || 'MM/AA';
-}
+let pfWidgetLoaded = false;
 
 function goToPayment(){
   if(!selection.checkin || !selection.checkout){
@@ -995,38 +977,75 @@ function goToPayment(){
   document.getElementById('paymentPanel').scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-function simulatePayment(){
-  const name = document.getElementById('cardName').value.trim();
-  const number = document.getElementById('cardNumber').value.replace(/\s/g,'');
-  const exp = document.getElementById('cardExp').value.trim();
-  const cvv = document.getElementById('cardCvv').value.trim();
-  const errEl = document.getElementById('payError');
+function tryLoadWidget(){
+  const guestEmail = document.getElementById('guestEmail').value.trim();
+  const guestPhone = document.getElementById('guestPhone').value.trim();
 
   if(!selection.checkin || !selection.checkout){
     showError('Primero selecciona tus fechas de check-in y check-out.');
     return;
   }
-  if(name.length < 3){ showError('Ingresa el nombre tal como aparece en la tarjeta.'); return; }
-  if(number.length < 15){ showError('El número de tarjeta parece incompleto.'); return; }
-  if(!/^\d{2}\/\d{2}$/.test(exp)){ showError('Ingresa el vencimiento en formato MM/AA.'); return; }
-  if(cvv.length < 3){ showError('El CVV debe tener 3 o 4 dígitos.'); return; }
+  if(!guestEmail || !guestPhone){
+    return; // espera a que complete ambos campos, sin mostrar error todavía
+  }
+  if(pfWidgetLoaded) return; // ya está cargado, no lo dupliques
 
-  errEl.style.display = 'none';
-  const btn = document.getElementById('payBtn');
-  const originalText = btn.textContent;
-  btn.textContent = 'Procesando pago simulado...';
-  btn.disabled = true;
+  const nights = Math.round((new Date(selection.checkout) - new Date(selection.checkin)) / 86400000);
+  const rate = CABINS[currentCabin].rate;
+  const amount = +(nights * rate).toFixed(2);
 
-  setTimeout(()=>{
-    document.getElementById('paymentForm').style.display = 'none';
-    updateSuccessCabinLabel();
-    const code = 'SBI-' + Math.floor(100000 + Math.random()*899999);
-    document.getElementById('successCode').textContent = code;
-    document.getElementById('successBox').classList.add('show');
-    btn.disabled = false;
-    btn.textContent = originalText;
-  }, 1400);
+  if(amount < 1){
+    showError(`El monto total ($${amount.toFixed(2)}) es menor al mínimo de $1.00 que exige PagueloFacil. Selecciona más noches o una cabaña con tarifa mayor.`);
+    return;
+  }
+
+  document.getElementById('widgetHint').style.display = 'none';
+  pfWidgetLoaded = true;
+
+  pfWallet = pfWallet || {};
+  pfWallet.useAsSandbox(PF_CONFIG.sandbox);
+
+  pfWallet.openService({
+    apiKey: PF_CONFIG.apiKey,
+    cclw: PF_CONFIG.cclw
+  }).then(function(merchantSetup){
+    const paymentInfo = {
+      amount: amount,
+      discount: 0.0,
+      taxAmount: 0.0,
+      description: `Reserva ${CABINS[currentCabin].name} — ${nights} noche(s)`
+    };
+    const setup = {
+      lang: 'es',
+      embedded: true,
+      container: 'container-form',
+      onError: function(data){
+        console.error('Error del widget PagueloFacil:', data);
+        showError('No se pudo cargar el formulario de pago. Intenta recargar la página.');
+      },
+      onTxSuccess: function(data){
+        // Solo se dispara cuando el banco REALMENTE aprobó la transacción.
+        console.log('Pago aprobado:', data);
+        document.getElementById('paymentForm').style.display = 'none';
+        updateSuccessCabinLabel();
+        document.getElementById('successCode').textContent = data && data.Oper ? data.Oper : 'SBI-PENDIENTE';
+        document.getElementById('successBox').classList.add('show');
+      },
+      onTxError: function(data){
+        console.error('Pago declinado:', data);
+        showError('El pago fue declinado por el banco. Intenta con otra tarjeta.');
+      },
+      onClose: function(){}
+    };
+    merchantSetup.init(merchantSetup.dataMerchant, paymentInfo, setup);
+  }, function(error){
+    console.error('No se pudo iniciar el servicio de PagueloFacil:', error);
+    showError('No se pudo conectar con PagueloFacil. Revisa tu conexión e intenta de nuevo.');
+  });
 }
+
+document.getElementById('guestEmail').addEventListener('blur', tryLoadWidget);
+document.getElementById('guestPhone').addEventListener('blur', tryLoadWidget);
 
 function showError(msg){
   const errEl = document.getElementById('payError');
